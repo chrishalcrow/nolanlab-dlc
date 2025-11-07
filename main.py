@@ -19,12 +19,12 @@ def main():
 
     data_folder = parser.parse_args().data_folder
     if data_folder is None:
-        data_folder = "/home/nolanlab/Work/Harry_Project/data/"
+        data_folder = "/exports/eddie/scratch/chalcrow/wolf/data"
     data_folder = Path(data_folder)
 
     deriv_folder = parser.parse_args().deriv_folder
     if deriv_folder is None:
-        deriv_folder = "/home/nolanlab/Work/Harry_Project/derivatives/"
+        deriv_folder = "/exports/eddie/scratch/chalcrow/wolf/derivatives"
     deriv_folder = Path(deriv_folder)
 
     config_path = "/exports/eddie/scratch/chalcrow/wolf/code/models/of_cohort12-krs-2024-10-30/config.yaml"
