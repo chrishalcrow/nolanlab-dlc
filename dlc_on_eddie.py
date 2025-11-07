@@ -26,3 +26,6 @@ def main():
     python_arg = f"$HOME/.local/bin/uv run /exports/eddie/scratch/chalcrow/wolf/code/nolanlab-dlc/dlc_on_eddie.py {mouse} {day} {session} {data_folder} {deriv_folder}"
 
     run_python_script(python_arg, cores=8, email="chalcrow@ed.ac.uk", staging=False, job_name=run_python_name)
+
+if __name__ == "__main__":
+    main()
