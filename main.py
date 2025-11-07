@@ -29,11 +29,9 @@ def main():
 
     config_path = "/exports/eddie/scratch/chalcrow/wolf/code/models/of_cohort12-krs-2024-10-30/config.yaml"
 
-    path_to_all_filepaths = "/exports/eddie/scratch/chalcrow/wolf/code/nolanlab-ephys/all_filepaths.csv"
-    all_filepaths = pd.read_csv(path_to_all_filepaths)
-    mouseday_folder = all_filepaths.query(f'mouse == {mouse} & day == {day} & session == "{session}"')['filepath'].values[0]
+    mouse_day_session_folder = list(data_folder.glob(f'M{mouse}_D{day}_*{session}'))[0]
 
-    video_path = mouseday_folder / f"sub-{mouse}_day-{day}_ses-{session}_video.avi"
+    video_path = mouse_day_session_folder / f"sub-{mouse}_day-{day}_ses-{session}_video.avi"
     save_path = deriv_folder / f"M{mouse}/D{day}/{session}/dlc_output"
 
     dlc.analyze_videos(config_path, [video_path], save_as_csv=True, destfolder=save_path)
