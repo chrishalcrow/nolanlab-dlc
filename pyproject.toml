@@ -6,8 +6,12 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "deeplabcut>=3.0.0rc13",
+    "eddie-helper",
     "matplotlib==3.8.3",
     "tables>=3.10.2",
     "torch>=2.9.0",
     "torchvision>=0.24.0",
 ]
+
+[tool.uv.sources]
+eddie-helper = { path = "../eddie_helper" }
