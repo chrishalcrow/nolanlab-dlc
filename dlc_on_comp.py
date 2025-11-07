@@ -34,7 +34,9 @@ def main():
 
     video_path = str(mouse_day_session_folder / f"sub-{mouse}_day-{day}_ses-{session}_video.avi")
     video_filename = video_path.split("/")[-1]
-    save_path = str(deriv_folder / f"M{mouse}/D{day}/{session}/dlc_output/")
+    save_path = deriv_folder / f"M{mouse}/D{day}/{session}/dlc_output/"
+    save_path.mkdir(parents=True, exist_ok=True)
+    save_path = str(save_path)
 
     derivatives_video_path = save_path + "/" + video_filename
     _ = shutil.copy(video_path, derivatives_video_path)
