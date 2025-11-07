@@ -1,7 +1,8 @@
 from argparse import ArgumentParser
 from pathlib import Path
 import deeplabcut as dlc
-import pandas as pd
+import shutil
+import os
 
 def main():
 
@@ -32,12 +33,18 @@ def main():
     mouse_day_session_folder = list(data_folder.glob(f'M{mouse}_D{day}_*{session}'))[0]
 
     video_path = str(mouse_day_session_folder / f"sub-{mouse}_day-{day}_ses-{session}_video.avi")
-    save_path = str(deriv_folder / f"M{mouse}/D{day}/{session}/dlc_output")
+    video_filename = video_path.split("/")[-1]
+    save_path = str(deriv_folder / f"M{mouse}/D{day}/{session}/dlc_output/")
 
-    dlc.analyze_videos(config_path, [video_path], save_as_csv=True, destfolder=save_path)
-    dlc.filterpredictions(config_path, [video_path])
-    dlc.create_labeled_video(config_path, [video_path], save_frames=False)
-    dlc.plot_trajectories(config_path, [video_path])
+    derivatives_video_path = save_path + video_filename
+    _ = shutil.copy(video_path, derivatives_video_path)
+
+    dlc.analyze_videos(config_path, [derivatives_video_path], save_as_csv=True, destfolder=save_path)
+    dlc.filterpredictions(config_path, [derivatives_video_path])
+    dlc.create_labeled_video(config_path, [derivatives_video_path], save_frames=False)
+    dlc.plot_trajectories(config_path, [derivatives_video_path])
+
+    os.remove(derivatives_video_path)
 
 if __name__ == "__main__":
     main()
