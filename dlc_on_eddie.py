@@ -23,9 +23,10 @@ def main():
     run_python_name = f"M{mouse}D{day}{session}dlc"
 #    stageout_job_name = f"M{mouse}D{day}{sessions[0]}out" 
 
-    python_arg = f"$HOME/.local/bin/uv run /exports/eddie/scratch/chalcrow/wolf/code/nolanlab-dlc/dlc_on_eddie.py {mouse} {day} {session} {data_folder} {deriv_folder}"
+    uv_directory = "/exports/eddie/scratch/chalcrow/wolf/code/nolanlab-dlc/"
+    python_arg = f"dlc_on_eddie.py {mouse} {day} {session} {data_folder} {deriv_folder}"
 
-    run_python_script(python_arg, cores=8, email="chalcrow@ed.ac.uk", staging=False, job_name=run_python_name)
+    run_python_script(uv_directory, python_arg, cores=8, email="chalcrow@ed.ac.uk", staging=False, job_name=run_python_name)
 
 if __name__ == "__main__":
     main()
