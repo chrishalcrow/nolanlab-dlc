@@ -36,7 +36,7 @@ def main():
     video_filename = video_path.split("/")[-1]
     save_path = str(deriv_folder / f"M{mouse}/D{day}/{session}/dlc_output/")
 
-    derivatives_video_path = save_path + video_filename
+    derivatives_video_path = save_path + "/" + video_filename
     _ = shutil.copy(video_path, derivatives_video_path)
 
     dlc.analyze_videos(config_path, [derivatives_video_path], save_as_csv=True, destfolder=save_path)
