@@ -31,8 +31,8 @@ def main():
 
     mouse_day_session_folder = list(data_folder.glob(f'M{mouse}_D{day}_*{session}'))[0]
 
-    video_path = mouse_day_session_folder / f"sub-{mouse}_day-{day}_ses-{session}_video.avi"
-    save_path = deriv_folder / f"M{mouse}/D{day}/{session}/dlc_output"
+    video_path = str(mouse_day_session_folder / f"sub-{mouse}_day-{day}_ses-{session}_video.avi")
+    save_path = str(deriv_folder / f"M{mouse}/D{day}/{session}/dlc_output")
 
     dlc.analyze_videos(config_path, [video_path], save_as_csv=True, destfolder=save_path)
     dlc.filterpredictions(config_path, [video_path])
