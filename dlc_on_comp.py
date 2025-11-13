@@ -19,7 +19,6 @@ def main():
     mouse = int(parser.parse_args().mouse)
     day = int(parser.parse_args().day)
     session = parser.parse_args().session
-
     bodypart = parser.parse_args().bodypart
 
     if bodypart not in ['lick', 'eye', 'body']:
@@ -55,8 +54,8 @@ def main():
     _ = shutil.copy(video_path, derivatives_video_path)
 
     if bodypart in ["eye", "tongue"]:
-        all_crop_info = pd.read_csv(f"wolf_crops/{bodypart}_crops_wolf")
-        x,y,w,h = all_crop_info.query(f'mouse == {mouse} & day == {day}')[['x','y','w','h']].values
+        all_crop_info = pd.read_csv(f"wolf_crops/{bodypart}_crops_wolf.csv")
+        x,y,w,h = all_crop_info.query(f'mouse == {mouse} & day == {day}')[['x','y','w','h']].values[0]
         cropping  =  [x, x+w, y, y+h]
     else:
         cropping = None
