@@ -3,6 +3,7 @@ from pathlib import Path
 import deeplabcut as dlc
 import shutil
 import os
+import pandas as pd
 
 def main():
 
@@ -11,12 +12,18 @@ def main():
     parser.add_argument('mouse')
     parser.add_argument('day')
     parser.add_argument('session')
+    parser.add_argument('bodypart')
     parser.add_argument('--data_folder', default=None)
     parser.add_argument('--deriv_folder', default=None)
 
     mouse = int(parser.parse_args().mouse)
     day = int(parser.parse_args().day)
     session = parser.parse_args().session
+
+    bodypart = parser.parse_args().bodypart
+
+    if bodypart not in ['lick', 'eye', 'body']:
+        raise UserWarning('bodypart must be lick eye or body!')
 
     data_folder = parser.parse_args().data_folder
     if data_folder is None:
@@ -28,7 +35,13 @@ def main():
         deriv_folder = "/exports/eddie/scratch/chalcrow/wolf/derivatives"
     deriv_folder = Path(deriv_folder)
 
-    config_path = "/exports/eddie/scratch/chalcrow/wolf/code/models/c12_lick-chris-2024-10-03/config.yaml"
+
+    if bodypart == "lick":
+        config_path = "/exports/eddie/scratch/chalcrow/wolf/code/models/c12_lick-chris-2024-10-03/config.yaml"
+    elif bodypart == "eye":
+        config_path = "/exports/eddie/scratch/chalcrow/wolf/code/models/vr-hc-2024-03-14_eddie/config.yaml"
+    elif bodypart == "body":
+        config_path = "/exports/eddie/scratch/chalcrow/wolf/code/models/of_cohort12-krs-2024-10-30/config.yaml"
 
     mouse_day_session_folder = list(data_folder.glob(f'M{mouse:02d}_D{day:02d}_*{session}'))[0]
 
@@ -41,17 +54,21 @@ def main():
     derivatives_video_path = save_path + "/" + video_filename
     _ = shutil.copy(video_path, derivatives_video_path)
 
-    x = 300
-    y = 580
-    w = 350
-    h = 350
+    if bodypart in ["eye", "tongue"]:
+        all_crop_info = pd.read_csv(f"wolf_crops/{bodypart}_crops_wolf")
+        x,y,w,h = all_crop_info.query(f'mouse == {mouse} & day == {day}')[['x','y','w','h']].values
+        cropping  =  [x, x+w, y, y+h]
+    else:
+        cropping = None
+
+    print(f"{cropping=}")
 
     dlc.analyze_videos(
         config_path, 
         [derivatives_video_path], 
         save_as_csv=True, 
         destfolder=save_path,
-        cropping = [x, x+w, y, y+h], 
+        cropping = cropping, 
     )
     dlc.filterpredictions(config_path, [derivatives_video_path])
     dlc.create_labeled_video(config_path, [derivatives_video_path], save_frames=False)
