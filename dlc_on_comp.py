@@ -46,7 +46,7 @@ def main():
 
     video_path = str(mouse_day_session_folder / f"M{mouse:02d}_D{day:02d}_{session}_side_capture.avi")
     video_filename = video_path.split("/")[-1]
-    save_path = deriv_folder / f"M{mouse:02d}/D{day:02d}/{session}/dlc_output/"
+    save_path = deriv_folder / f"M{mouse:02d}/D{day:02d}/{session}/dlc_output_{bodypart}/"
     save_path.mkdir(parents=True, exist_ok=True)
     save_path = str(save_path)
 
