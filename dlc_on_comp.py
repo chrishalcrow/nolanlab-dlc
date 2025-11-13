@@ -28,20 +28,31 @@ def main():
         deriv_folder = "/exports/eddie/scratch/chalcrow/wolf/derivatives"
     deriv_folder = Path(deriv_folder)
 
-    config_path = "/exports/eddie/scratch/chalcrow/wolf/code/models/of_cohort12-krs-2024-10-30/config.yaml"
+    config_path = "/exports/eddie/scratch/chalcrow/wolf/code/models/c12_lick-chris-2024-10-03/config.yaml"
 
-    mouse_day_session_folder = list(data_folder.glob(f'M{mouse}_D{day}_*{session}'))[0]
+    mouse_day_session_folder = list(data_folder.glob(f'M{mouse:02d}_D{day:02d}_*{session}'))[0]
 
-    video_path = str(mouse_day_session_folder / f"sub-{mouse}_day-{day}_ses-{session}_video.avi")
+    video_path = str(mouse_day_session_folder / f"M{mouse:02d}_D{day:02d}_{session}_side_capture.avi")
     video_filename = video_path.split("/")[-1]
-    save_path = deriv_folder / f"M{mouse}/D{day}/{session}/dlc_output/"
+    save_path = deriv_folder / f"M{mouse:02d}/D{day:02d}/{session}/dlc_output/"
     save_path.mkdir(parents=True, exist_ok=True)
     save_path = str(save_path)
 
     derivatives_video_path = save_path + "/" + video_filename
     _ = shutil.copy(video_path, derivatives_video_path)
 
-    dlc.analyze_videos(config_path, [derivatives_video_path], save_as_csv=True, destfolder=save_path)
+    x = 300
+    y = 580
+    w = 350
+    h = 350
+
+    dlc.analyze_videos(
+        config_path, 
+        [derivatives_video_path], 
+        save_as_csv=True, 
+        destfolder=save_path,
+        cropping = [x, x+w, y, y+h], 
+    )
     dlc.filterpredictions(config_path, [derivatives_video_path])
     dlc.create_labeled_video(config_path, [derivatives_video_path], save_frames=False)
     dlc.plot_trajectories(config_path, [derivatives_video_path])
