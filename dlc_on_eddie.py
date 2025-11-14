@@ -20,12 +20,12 @@ def main():
     bodypart = parser.parse_args().bodypart
 
     data_folder = parser.parse_args().data_folder
-    if data_folder is None:
+    if len(data_folder) == 0:
         data_folder = "/exports/eddie/scratch/chalcrow/wolf/data"
     data_folder = Path(data_folder)
 
     deriv_folder = parser.parse_args().deriv_folder
-    if deriv_folder is None:
+    if len(deriv_folder) == 0:
         deriv_folder = "/exports/eddie/scratch/chalcrow/wolf/derivatives"
     deriv_folder = Path(deriv_folder)
 
