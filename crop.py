@@ -16,7 +16,7 @@ x,y,w,h = 300,580,350,350
 
 # output
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter('tongue.avi', fourcc, fps, (w, h))
+out = cv2.VideoWriter('/Users/christopherhalcrow/Downloads/tongue.avi', fourcc, fps, (w, h))
 
 
 # Now we start
@@ -40,10 +40,6 @@ while(cap.isOpened()):
 
         # I see the answer now. Here you save all the video
         out.write(crop_frame)
-
-        # Just to see the video in real time          
-        cv2.imshow('frame',frame)
-        cv2.imshow('croped',crop_frame)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
