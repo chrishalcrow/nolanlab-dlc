@@ -33,7 +33,7 @@ def main():
     stageout_job_name = f"M{mouse}D{day}{session[:2]}out" 
 
     eddie_active_projects = Path("/exports/cmvm/datastore/sbms/groups/CDBS_SIDB_storage/NolanLab/ActiveProjects/")
-    stageout_dict = {deriv_folder / f"M{mouse:02d}/D{day:02d}/{session}/dlc_output_{bodypart}": eddie_active_projects / "Chris/Wolf_Experiment/derivatives" / f"M{mouse:02d}/D{day:02d}/{session}/"}
+    stageout_dict = {deriv_folder / f"M{mouse:02d}/D{day:02d}/{session}/dlc_output_{bodypart}": eddie_active_projects / "Wolf/MMNAV/derivatives" / f"M{mouse:02d}/D{day:02d}/{session}/"}
 
     uv_directory = "/exports/eddie/scratch/chalcrow/wolf/code/nolanlab-dlc/"
     python_arg = f"dlc_on_comp.py {mouse} {day} {session} {bodypart} --data_folder {data_folder} --deriv_folder {deriv_folder}"
