@@ -85,7 +85,6 @@ def main():
 
     save_path = deriv_folder / f"M{mouse:02d}/D{day:02d}/{session}/dlc_output_{bodypart}/"
     save_path.mkdir(parents=True, exist_ok=True)
-    save_path = str(save_path)
     cropped_video_path = str(save_path / f"M{mouse:02d}_D{day:02d}_{session}_side_capture_{bodypart}.avi")
 
     #derivatives_video_path = save_path + "/" + video_filename
