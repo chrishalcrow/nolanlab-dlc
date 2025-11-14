@@ -59,7 +59,7 @@ def main():
     session = parser.parse_args().session
     bodypart = parser.parse_args().bodypart
 
-    if bodypart not in ['lick', 'eye', 'body']:
+    if bodypart not in ['tongue', 'eye', 'body']:
         raise UserWarning('bodypart must be lick eye or body!')
 
     data_folder = parser.parse_args().data_folder
@@ -72,7 +72,7 @@ def main():
         deriv_folder = "/exports/eddie/scratch/chalcrow/wolf/derivatives"
     deriv_folder = Path(deriv_folder)
 
-    if bodypart == "lick":
+    if bodypart == "tongue":
         config_path = "/exports/eddie/scratch/chalcrow/wolf/code/models/c12_lick-chris-2024-10-03/config.yaml"
     elif bodypart == "eye":
         config_path = "/exports/eddie/scratch/chalcrow/wolf/code/models/vr-hc-2024-03-14_eddie/config.yaml"
