@@ -92,7 +92,12 @@ def main():
 
     if bodypart in ["eye", "tongue"]:
         all_crop_info = pd.read_csv(f"wolf_crops/{bodypart}_crops_wolf.csv")
-        x,y,w,h = all_crop_info.query(f'mouse == {mouse} & day == {day}')[['x','y','w','h']].values[0]
+        mouseday_crops = all_crop_info.query(f'mouse == {mouse} & day == {day}')
+        if len(mouseday_crops) > 0:
+            x,y,w,h = mouseday_crops[['x','y','w','h']].values[0]
+        else:
+            # if we've not done manual crops, use the last day.
+            x,y,w,h = all_crop_info.query(f'mouse == {mouse}').sort_values('day').iloc[-1][['x','y','w','h']].values
         cropping  =  [x, y, w, h]
     else:
         cropping = None
